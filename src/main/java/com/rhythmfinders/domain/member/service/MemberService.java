@@ -25,6 +25,7 @@ public class MemberService {
     }
 
     public int logout() {
+        return 0;
     }
 
     public void findMemberBy() {
