@@ -1,4 +1,4 @@
-package com.rhythmfinders.domain.member.Service;
+package com.rhythmfinders.domain.member.service;
 
 public class MemberService {
 }
