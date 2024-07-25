@@ -20,7 +20,7 @@ public class Application {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
-            System.out.println("===== 회원 관리 프로그램 =====");
+            System.out.println("===== 로그인 화면 =====");
             System.out.println("1. 회원가입");
             System.out.println("2. 로그인");
             System.out.println("3. 아이디 찾기");
@@ -134,7 +134,7 @@ public class Application {
         BufferedReader brUser = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
-            System.out.println("===== 회원 관리 프로그램 =====");
+            System.out.println("===== 일반 유저 화면 =====");
             System.out.println("1. 회원 정보 수정");
             System.out.println("2. 회원 탈퇴");
             System.out.println("3. 로그아웃");
@@ -174,7 +174,7 @@ public class Application {
         BufferedReader brAdimin = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
-            System.out.println("===== 회원 관리 프로그램 =====");
+            System.out.println("===== 관리자 화면 =====");
             System.out.println("1. 회원 단일 조회");
             System.out.println("2. 회원 전체 조회");
             System.out.println("3. 회원 삭제");
