@@ -2,6 +2,7 @@ package com.rhythmfinders.domain.member.repository;
 
 import com.rhythmfinders.domain.member.aggregate.Gender;
 import com.rhythmfinders.domain.member.aggregate.Member;
+import com.rhythmfinders.domain.member.aggregate.MemberLoginInfo;
 import com.rhythmfinders.domain.member.aggregate.Role;
 
 import java.io.*;
@@ -56,7 +57,7 @@ public class MemberRepository {
                 memberList.add((Member) ois.readObject());
 
         } catch (EOFException e) {
-            System.out.println("회원 정보 모두 로딩됨...");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -95,5 +96,15 @@ public class MemberRepository {
 
     public ArrayList<Member> selectAllMember() {
         return loadMembers();
+    }
+
+    public int existMemberByEmailandPw(MemberLoginInfo loginInfo) {
+        ArrayList<Member> memberList = loadMembers();
+
+        for(Member member : memberList) {
+            if(member.getEmail().equals(loginInfo.getEmail()) && member.getPw().equals(loginInfo.getPw()))
+                return 1;
+        }
+        return 0;
     }
 }

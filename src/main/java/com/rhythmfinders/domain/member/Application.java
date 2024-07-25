@@ -2,6 +2,7 @@ package com.rhythmfinders.domain.member;
 
 import com.rhythmfinders.domain.member.aggregate.Gender;
 import com.rhythmfinders.domain.member.aggregate.Member;
+import com.rhythmfinders.domain.member.aggregate.MemberLoginInfo;
 import com.rhythmfinders.domain.member.service.MemberService;
 
 import java.io.BufferedReader;
@@ -40,12 +41,15 @@ public class Application {
                     memberService.signUp(memberInfo());
                     break;
                 case 2:
-                    int result = memberService.login();
+                    int result = memberService.login(inputLoginInfo());
 
                     if(result == 1)
                         showAdmin();
                     else if(result == 2)
                         showUser();
+                    else
+                        System.out.println("회원 정보가 없습니다");
+
                     break;
                 case 3:
                     memberService.findMemberId();
@@ -62,6 +66,20 @@ public class Application {
                     System.out.println("번호를 잘못 입력했습니다");
             }
         }
+    }
+
+    private static MemberLoginInfo inputLoginInfo() throws IOException {
+        MemberLoginInfo loginInfo = new MemberLoginInfo();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("email 입력 : ");
+        loginInfo.setEmail(br.readLine());
+
+        System.out.print("비밀번호 입력 : ");
+        loginInfo.setPw(br.readLine());
+
+        return loginInfo;
     }
 
     private static Member memberInfo() throws IOException {
@@ -137,6 +155,7 @@ public class Application {
 
                     if(i == 1)
                         return;
+
                     System.out.println("logout 실패");
                     break;
                 case 9:

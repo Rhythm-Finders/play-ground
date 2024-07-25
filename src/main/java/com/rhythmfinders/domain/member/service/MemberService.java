@@ -1,6 +1,7 @@
 package com.rhythmfinders.domain.member.service;
 
 import com.rhythmfinders.domain.member.aggregate.Member;
+import com.rhythmfinders.domain.member.aggregate.MemberLoginInfo;
 import com.rhythmfinders.domain.member.repository.MemberRepository;
 
 import java.util.ArrayList;
@@ -17,8 +18,14 @@ public class MemberService {
             System.out.println("회원가입 실패");
     }
 
-    public int login() {
-        return 0;
+    public int login(MemberLoginInfo loginInfo) {
+        int result = memberRepository.existMemberByEmailandPw(loginInfo);
+        
+        if (result == 1)
+            System.out.println("로그인 성공");
+        else
+            System.out.println("로그인 실패");
+        return result;
     }
 
     public void findMemberId() {
