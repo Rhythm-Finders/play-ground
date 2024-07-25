@@ -1,8 +1,9 @@
 package com.rhythmfinders.domain.post.aggregate;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Post {
+public class Post implements Serializable {
     public int postId;
     public String postTitle;
     public String postContents;
