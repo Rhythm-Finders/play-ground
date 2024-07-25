@@ -56,6 +56,8 @@ public class Application {
                 case 9:
                     System.out.println("프로그램을 종료합니다");
                     return;
+                case 1234:
+                    memberService.findAllMember();
                 default:
                     System.out.println("번호를 잘못 입력했습니다");
             }
@@ -140,6 +142,8 @@ public class Application {
                 case 9:
                     System.out.println("프로그램을 종료합니다");
                     System.exit(0);
+                case 1234:
+                    memberService.findAllMember();
                 default:
                     System.out.println("번호를 잘못 입력했습니다");
             }
@@ -166,7 +170,7 @@ public class Application {
                     memberService.findMemberBy();
                     break;
                 case 2:
-                    memberService.findMemberAll();
+                    memberService.findAllMember();
                     break;
                 case 3:
                     memberService.removeMemberBy();
@@ -181,6 +185,8 @@ public class Application {
                 case 9:
                     System.out.println("프로그램을 종료합니다");
                     System.exit(0);
+                case 1234:
+                    memberService.findAllMember();
                 default:
                     System.out.println("번호를 잘못 입력했습니다");
             }

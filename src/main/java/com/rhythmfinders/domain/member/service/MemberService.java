@@ -3,6 +3,8 @@ package com.rhythmfinders.domain.member.service;
 import com.rhythmfinders.domain.member.aggregate.Member;
 import com.rhythmfinders.domain.member.repository.MemberRepository;
 
+import java.util.ArrayList;
+
 public class MemberService {
     private MemberRepository memberRepository = new MemberRepository();
 
@@ -38,6 +40,11 @@ public class MemberService {
     public void findMemberBy() {
     }
 
-    public void findMemberAll() {
+    public void findAllMember() {
+        ArrayList<Member> members = memberRepository.selectAllMember();
+
+        for(Member member : members)
+            System.out.println(member);
+
     }
 }

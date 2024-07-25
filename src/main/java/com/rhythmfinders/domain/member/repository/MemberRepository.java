@@ -92,4 +92,8 @@ public class MemberRepository {
 
         return 0;
     }
+
+    public ArrayList<Member> selectAllMember() {
+        return loadMembers();
+    }
 }
