@@ -1,4 +1,4 @@
-package com.rhythmfinders.domain.post;
+package com.rhythmfinders.domain.post.aggregate;
 
 import java.lang.reflect.Member;
 import java.util.Date;
