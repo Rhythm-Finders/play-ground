@@ -1,4 +1,5 @@
 package com.rhythmfinders.domain.member.aggregate;
 
-public class Role {
+public enum Role {
+    ADMIN, USER;
 }
