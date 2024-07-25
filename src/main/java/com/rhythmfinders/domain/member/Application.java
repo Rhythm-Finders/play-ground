@@ -1,17 +1,20 @@
 package com.rhythmfinders.domain.member;
 
+import com.rhythmfinders.domain.member.aggregate.Gender;
+import com.rhythmfinders.domain.member.aggregate.Member;
 import com.rhythmfinders.domain.member.service.MemberService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLData;
+import java.util.StringTokenizer;
 
 public class Application {
 
     private static final MemberService memberService = new MemberService();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -34,7 +37,7 @@ public class Application {
 
             switch (input){
                 case 1:
-                    memberService.signUp();
+                    memberService.signUp(memberInfo());
                     break;
                 case 2:
                     int result = memberService.login();
@@ -43,9 +46,6 @@ public class Application {
                         showAdmin();
                     else if(result == 2)
                         showUser();
-
-
-
                     break;
                 case 3:
                     memberService.findMemberId();
@@ -62,7 +62,55 @@ public class Application {
         }
     }
 
-    private static void showUser() {
+    private static Member memberInfo() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        Member newMember = new Member();
+
+        System.out.print("이메일 입력 : ");
+        newMember.setEmail(br.readLine());
+
+        System.out.print("비밀번호 입력 : ");
+        newMember.setPw(br.readLine());
+
+        System.out.print("이름 입력 : ");
+        newMember.setName(br.readLine());
+
+        System.out.print("닉네임 입력 : ");
+        newMember.setNickname(br.readLine());
+
+        System.out.print("나이 입력 : ");
+        newMember.setAge(Integer.valueOf(br.readLine()));
+
+        System.out.print("성별 입력(m, f) : ");
+        String input = br.readLine().toLowerCase();
+        Gender gender = null;
+
+        if(input.equals("m"))
+            gender = Gender.MALE;
+        else if(input.equals("f"))
+            gender = Gender.FEMALE;
+        else {
+            System.out.println("잘못된 값 입력");
+            return null;
+        }
+
+        newMember.setGender(gender);
+
+        System.out.print("관심사 입력 (ex. 축구, 농구) : ");
+        StringTokenizer st = new StringTokenizer(br.readLine(), ",");
+        String[] category = new String[st.countTokens()];
+        int num = 0;
+
+        while(st.hasMoreTokens())
+            category[num++] = st.nextToken().trim();
+
+        newMember.setMyCategory(category);
+
+        return newMember;
+    }
+
+    private static void showUser() throws IOException {
         BufferedReader brUser = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
@@ -73,13 +121,7 @@ public class Application {
             System.out.println("9. 프로그램 종료");
             System.out.print("메뉴를 선택해 주세요 : ");
 
-            int input = 0;
-
-            try {
-                input = Integer.parseInt(brUser.readLine());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            int input = Integer.parseInt(brUser.readLine());;
 
             switch (input){
                 case 1:
@@ -105,7 +147,7 @@ public class Application {
 
     }
 
-    private static void showAdmin() {
+    private static void showAdmin() throws IOException{
         BufferedReader brAdimin = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
@@ -117,13 +159,7 @@ public class Application {
             System.out.println("9. 프로그램 종료");
             System.out.print("메뉴를 선택해 주세요 : ");
 
-            int input = 0;
-
-            try {
-                input = Integer.parseInt(brAdimin.readLine());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            int input = Integer.parseInt(brAdimin.readLine());
 
             switch (input){
                 case 1:

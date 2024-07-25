@@ -1,11 +1,18 @@
 package com.rhythmfinders.domain.member.service;
 
+import com.rhythmfinders.domain.member.aggregate.Member;
 import com.rhythmfinders.domain.member.repository.MemberRepository;
 
 public class MemberService {
     private MemberRepository memberRepository = new MemberRepository();
 
-    public void signUp() {
+    public void signUp(Member newMember) {
+        int result = memberRepository.saveMember(newMember);
+        
+        if (result == 1)
+            System.out.println("회원가입을 축하합니다");
+        else
+            System.out.println("회원가입 실패");
     }
 
     public int login() {
