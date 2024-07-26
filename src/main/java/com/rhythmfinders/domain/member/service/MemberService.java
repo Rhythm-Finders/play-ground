@@ -31,21 +31,27 @@ public class MemberService {
 
     }
 
-    public int login(MemberLoginInfo loginInfo) {
+    public MemberLoginResponse login(MemberLoginInfo loginInfo) {
 
         ArrayList<Member> memberList = memberRepository.loadMembers();
+        MemberLoginResponse memLoginResponse = new MemberLoginResponse();
 
         for(Member member : memberList) {
             if(member.getEmail().equals(loginInfo.getEmail()) && member.getPw().equals(loginInfo.getPw())){
                 System.out.println("로그인 성공");
                 member.setFlag(true);
                 memberRepository.saveMembers(memberList);
-                return 1;
+
+                memLoginResponse.setMemId(member.getId());
+                memLoginResponse.setMemRole(member.getRole().toString());
+                memLoginResponse.setSucess(true);
+                return memLoginResponse;
             }
         }
 
         System.out.println("로그인 실패");
-        return 0;
+        memLoginResponse.setSucess(false);
+        return memLoginResponse;
     }
 
     public void findMemberEmail(MemberFindEmailInfo mfe) {
@@ -75,7 +81,7 @@ public class MemberService {
     }
 
     public void modifyMemberBy() {
-        회원 정보를 끌고와서 flag
+//        회원 정보를 끌고와서 flag
     }
 
     public void removeMemberBy() {
