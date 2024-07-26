@@ -15,7 +15,7 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post(String postContents, String postTitle) {
+    public Post(String postTitle, String postContents) {
         this.postContents = postContents;
         this.postTitle = postTitle;
     }

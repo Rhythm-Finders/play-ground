@@ -9,8 +9,9 @@ public class PostService {
     private final PostRepository postRepository = new PostRepository();
 
     public void writePost(Post newPostInfo) {
+        int lastPostNo = postRepository.selectLastPostNo();
         Post post = new Post();
-        int result = postRepository.registPost(newPostInfo);
+        int result = postRepository.registPost(newPostInfo, lastPostNo);
         if (result == 1) {
             System.out.println(newPostInfo.getPostTitle() + "작성되었습니다.");
             // TODO
@@ -31,7 +32,7 @@ public class PostService {
             System.out.println("글이 삭제되었습니다.");
             return;
         }
-        System.out.println("글을 삭제하실 건가요?");
+        System.out.println("글이 삭제되지 않았습니다.");
     }
 
     public void modifyPost(Post reform) {
@@ -67,6 +68,7 @@ public class PostService {
         Post selectedPost = postRepository.selectPost(postId);
         if (selectedPost != null) {
             System.out.println("조회된 게시글은 [" + selectedPost.getPostTitle() + "] 입니다.");
+            System.out.println("["+ selectedPost.getPostTitle() + "] 글의 내용은 '" + selectedPost.getPostContents() + "' 입니다.");
         } else {
             System.out.println("찾으시는 상품 게시글은 없습니다.");
         }

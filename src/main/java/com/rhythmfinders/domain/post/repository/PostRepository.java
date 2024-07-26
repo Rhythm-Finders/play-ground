@@ -80,8 +80,11 @@ public class PostRepository {
 
     // TODO: return Post
 //    public Post registPost(Post newPostInfo) {
-    public int registPost(Post newPostInfo) {
+    public int registPost(Post newPostInfo, int lastPostNo) {
         // TODO: input post
+        newPostInfo.setPostId(lastPostNo);
+        postListInstance.add(newPostInfo);
+        // file에 넣어야합니다.
         return 0;
     }
 
@@ -95,11 +98,12 @@ public class PostRepository {
         int result = 0;
             for (Post post : postListInstance) {
                 if (post.getPostId() == removePost) {
-                    post.setPostId(null);
+                    postListInstance.remove(post);
+                    return 1;
+                    // file 정리해주세여!!
                 }
             }
 
-            result = 1;
         return result;
     }
 
@@ -126,5 +130,10 @@ public class PostRepository {
             if (post.getPostId() == postId) return post;
         }
         return null;
+    }
+
+    public int selectLastPostNo() {
+        Post lastPost = postListInstance.get(postListInstance.size() - 1);
+        return lastPost.getPostId() + 1;
     }
 }

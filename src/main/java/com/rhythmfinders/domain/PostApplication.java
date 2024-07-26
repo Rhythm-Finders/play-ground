@@ -35,7 +35,7 @@ public class PostApplication {
                         System.out.println(post);
                     }
                     break;
-                case "2":
+               case "2":
                     // write post with memberId
                     postService.writePost(getNewPostInformation());
                     break;
