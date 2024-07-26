@@ -1,14 +1,11 @@
 package com.rhythmfinders.domain.member;
 
-import com.rhythmfinders.domain.member.aggregate.Gender;
-import com.rhythmfinders.domain.member.aggregate.Member;
-import com.rhythmfinders.domain.member.aggregate.MemberLoginInfo;
+import com.rhythmfinders.domain.member.aggregate.*;
 import com.rhythmfinders.domain.member.service.MemberService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLData;
 import java.util.StringTokenizer;
 
 public class Application {
@@ -23,7 +20,7 @@ public class Application {
             System.out.println("===== 로그인 화면 =====");
             System.out.println("1. 회원가입");
             System.out.println("2. 로그인");
-            System.out.println("3. 아이디 찾기");
+            System.out.println("3. 이메일 찾기");
             System.out.println("4. 비밀번호 찾기");
             System.out.println("9. 프로그램 종료");
             System.out.print("메뉴를 선택해 주세요 : ");
@@ -52,10 +49,10 @@ public class Application {
 
                     break;
                 case 3:
-                    memberService.findMemberId();
+                    memberService.findMemberEmail(inputEmail());
                     break;
                 case 4:
-                    memberService.findMemberPw();
+                    memberService.findMemberPw(inputPw());
                     break;
                 case 9:
                     System.out.println("프로그램을 종료합니다");
@@ -66,6 +63,35 @@ public class Application {
                     System.out.println("번호를 잘못 입력했습니다");
             }
         }
+    }
+
+    private static MemberFindPwInfo inputPw() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        MemberFindPwInfo mfp = new MemberFindPwInfo();
+
+        System.out.print("이메일을 입력해주세요 : ");
+        mfp.setEmail(br.readLine());
+
+        System.out.print("사용자 이름을 입력해주세요 : ");
+        mfp.setName(br.readLine());
+
+        System.out.print("사용자 닉네임을 입력해주세요 : ");
+        mfp.setNickname(br.readLine());
+
+        return mfp;
+    }
+
+    private static MemberFindEmailInfo inputEmail() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        MemberFindEmailInfo mfe = new MemberFindEmailInfo();
+
+        System.out.print("사용자 이름을 입력해주세요 : ");
+        mfe.setName(br.readLine());
+
+        System.out.print("사용자 닉네임을 입력해주세요 : ");
+        mfe.setNickname(br.readLine());
+
+        return mfe;
     }
 
     private static MemberLoginInfo inputLoginInfo() throws IOException {

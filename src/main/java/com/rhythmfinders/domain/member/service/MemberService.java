@@ -1,8 +1,6 @@
 package com.rhythmfinders.domain.member.service;
 
-import com.rhythmfinders.domain.member.aggregate.Member;
-import com.rhythmfinders.domain.member.aggregate.MemberLoginInfo;
-import com.rhythmfinders.domain.member.aggregate.Role;
+import com.rhythmfinders.domain.member.aggregate.*;
 import com.rhythmfinders.domain.member.repository.MemberRepository;
 
 import java.util.ArrayList;
@@ -48,10 +46,30 @@ public class MemberService {
         return 0;
     }
 
-    public void findMemberId() {
+    public void findMemberEmail(MemberFindEmailInfo mfe) {
+        ArrayList<Member> memberList = memberRepository.loadMembers();
+
+        for(Member member : memberList) {
+            if(member.getName().equals(mfe.getName()) && member.getNickname().equals(mfe.getNickname())){
+                System.out.println("당신의 ID 값은 : " + member.getEmail());
+                return;
+            }
+        }
+
+        System.out.println("회원 정보가 없습니다");
     }
 
-    public void findMemberPw() {
+    public void findMemberPw(MemberFindPwInfo mfp) {
+        ArrayList<Member> memberList = memberRepository.loadMembers();
+
+        for(Member member : memberList) {
+            if(member.getEmail().equals(mfp.getEmail()) && member.getName().equals(mfp.getName()) && member.getNickname().equals(mfp.getNickname())){
+                System.out.println("당신의 pw 값은 : " + member.getPw());
+                return;
+            }
+        }
+
+        System.out.println("회원 정보가 없습니다");
     }
 
     public void modifyMemberBy() {
