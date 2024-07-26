@@ -23,13 +23,13 @@ public class MemberRepository {
         }
     }
 
-    public void saveMembers(ArrayList<Member> defaultMembers) {
+    public void saveMembers(ArrayList<Member> Members) {
         ObjectOutputStream oos = null;
 
         try {
             oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 
-            for(Member member : defaultMembers)
+            for(Member member : Members)
                 oos.writeObject(member);
 
         } catch (IOException e) {
@@ -71,10 +71,6 @@ public class MemberRepository {
         }
 
         return memberList;
-    }
-
-    public ArrayList<Member> selectAllMember() {
-        return loadMembers();
     }
 
 }

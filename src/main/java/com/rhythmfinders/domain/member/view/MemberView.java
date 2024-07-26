@@ -7,6 +7,7 @@ import com.rhythmfinders.domain.member.service.MemberService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class MemberView {
@@ -89,13 +90,13 @@ public class MemberView {
 
             switch (input){
                 case 1:
-                    memberService.modifyMemberBy();
+                    memberService.modifyMemberBy(modifyMemberData(Application.currentMemId, chooseModifyNo()));
                     break;
                 case 2:
-                    memberService.removeMemberBy();
+                    memberService.removeMemberBy(Application.currentMemId);
                     break;
                 case 3:
-                    int i = memberService.logout();
+                    int i = memberService.logout(Application.currentMemId);
 
                     if(i == 1)
                         return;
@@ -114,6 +115,95 @@ public class MemberView {
 
     }
 
+    private static Member modifyMemberData(int memNo, int[] modifyNums) throws IOException{
+        Member modMem = new Member();
+        modMem.setId(Application.currentMemId);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        for (int i = 0; i < modifyNums.length; i++) {
+            if(modifyNums[i] == 1){
+                System.out.print("변경 할 nickname 값을 입력하세요 : ");
+                modMem.setNickname(br.readLine());
+            } else if (modifyNums[i]==2) {
+                System.out.print("변경 할 name 값을 입력하세요 : ");
+                modMem.setName(br.readLine());
+            }else if (modifyNums[i]==3) {
+                System.out.print("변경 할 pw 값을 입력하세요 : ");
+                modMem.setPw(br.readLine());
+            }else if (modifyNums[i]==4) {
+                System.out.print("변경 할 age 값을 입력하세요 : ");
+                modMem.setAge(Integer.parseInt(br.readLine()));
+            }else if (modifyNums[i]==5) {
+                System.out.print("변경 할 gender 값을 입력하세요 : ");
+                modifyGender(modMem, br);
+            }else if (modifyNums[i]==6) {
+                System.out.print("변경 할 myCategory 값을 입력하세요(ex. 축구,농구,... : ");
+                modifyMyCategory(br, modMem);
+            }
+        }
+
+        System.out.println(modMem);
+        return modMem;
+    }
+
+    private static void modifyMyCategory(BufferedReader br, Member modMem) throws IOException{
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        String[] myCategory = new String[st.countTokens()];
+
+        int index = 0;
+
+        while (st.hasMoreTokens()){
+            myCategory[index] = st.nextToken();
+            index++;
+        }
+
+        modMem.setMyCategory(myCategory);
+    }
+
+    private static void modifyGender(Member modMem, BufferedReader br) throws IOException {
+        String gender = null;
+        gender = br.readLine().toUpperCase();
+        Gender gd = null;
+
+        switch (gender) {
+            case "M":
+                gd = Gender.MALE;
+                break;
+            case "F":
+                gd = Gender.MALE;
+                break;
+        }
+
+        modMem.setGender(gd);
+    }
+
+    private static int[] chooseModifyNo() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("===== 회원 수정 정보 =====");
+        System.out.println("1. nickname");
+        System.out.println("2. name");
+        System.out.println("3. pw");
+        System.out.println("4. age");
+        System.out.println("5. gender");
+        System.out.println("6. myCategory");
+        System.out.println("9. 수정 안합니다");
+        System.out.print("수정하려는 정보들을 선택해 주세요(ex. 1,2,5) : ");
+
+        StringTokenizer st = new StringTokenizer(br.readLine(), ",");
+
+
+        int[] modifyNo = new int[st.countTokens()];
+        int i = 0;
+
+        while(st.hasMoreTokens()) {
+            modifyNo[i] = Integer.valueOf(st.nextToken());
+            i++;
+        }
+
+        return modifyNo;
+    }
+
     private static void showAdmin() throws IOException{
         BufferedReader brAdimin = new BufferedReader(new InputStreamReader(System.in));
 
@@ -130,16 +220,16 @@ public class MemberView {
 
             switch (input){
                 case 1:
-                    memberService.findMemberBy();
+                    memberService.findMemberBy(chooseMemberId());
                     break;
                 case 2:
                     memberService.findAllMember();
                     break;
                 case 3:
-                    memberService.removeMemberBy();
+                    memberService.removeMemberBy(chooseMemberId());
                     break;
                 case 4:
-                    int i = memberService.logout();
+                    int i = memberService.logout(Application.currentMemId);
 
                     if(i == 1)
                         return;
@@ -155,6 +245,15 @@ public class MemberView {
             }
         }
 
+    }
+
+    private static int chooseMemberId() throws IOException{
+        BufferedReader brMember = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("조회하려는 회원의 Id를 입력해주세요 : ");
+        int memId = Integer.valueOf(brMember.readLine());
+
+        return memId;
     }
 
     private static MemberFindPwInfo inputPw() throws IOException{
