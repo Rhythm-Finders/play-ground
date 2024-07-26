@@ -37,4 +37,7 @@ public class ProductService {
 
     public void modifyProduct(int i, Product product) {
     }
+
+    public Product findProductForMod(int i) {
+    }
 }
