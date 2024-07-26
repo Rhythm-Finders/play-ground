@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 public class Application {
 
     private static final MemberService ms = new MemberService();
-    private static int memNo;
+    public static int memNo;
 
     public static void main(String[] args) throws IOException {
 
@@ -25,6 +25,7 @@ public class Application {
             System.out.println("3. 아이디 찾기");
             System.out.println("4. 비밀번호 찾기");
             System.out.println("9. 프로그램 종료");
+            System.out.print("위 메뉴의 번호를 입력하시오.");
             int input = Integer.valueOf(br.readLine());
 
             switch (input) {
@@ -36,7 +37,7 @@ public class Application {
                     secondPage(r);
                     break;
                 case 3:
-                    ms.findId(checkUserNo());
+                    ms.findEmail(checkUserNo());
                     break;
                 case 4:
                     ms.findpw(checkUserEmailNo());
@@ -53,11 +54,11 @@ public class Application {
         }
     }
 
-    private static void secondPage(int r) {
+    private static void secondPage(int r) throws IOException {
         if (r == 1) {
-//            UserPage();
+            UserPage();
         } else if (r == 2) {
-//            AdminPage();
+            AdminPage();
         }
     }
 
@@ -69,17 +70,22 @@ public class Application {
             System.out.println("2. 회원 전체 조회");
             System.out.println("3. 회원 삭제");
             System.out.println("9. 로그아웃");
+            System.out.print("위 메뉴의 번호를 입력하시오.");
 
             int input = Integer.valueOf(br.readLine());
 
             switch (input) {
                 case 1:
+                    ms.showOneMember(checkUserNo());
                     break;
                 case 2:
+                    ms.showAllMember();
                     break;
                 case 3:
+                    ms.deleteMember(checkUserNo());
                     break;
                 case 9:
+                    ms.logout(memNo);
                     System.out.println("로그아웃 합니다.");
                     return;
                 default:
@@ -100,18 +106,19 @@ public class Application {
             System.out.println("3. 게시판");
             System.out.println("4. Product");
             System.out.println("9. 로그아웃");
+            System.out.print("위 메뉴의 번호를 입력하시오.");
 
-            int input = Integer.valueOf(br.readLine());
+            String input = br.readLine();
 
             switch (input) {
-                case 1:
+                case "1":
                     ms.modifyUserInfo(selectModifyInto());
                     break;
-                case 2:
-//                    ms.resignUser();
+                case "2":
+                    ms.resignUser(memNo);
                     break;
-                case 9:
-                    System.out.println("로그아웃 합니다.");
+                case "9":
+                    ms.logout(memNo);
                     return;
                 default:
                     System.out.println("번호를 잘못 입력하셨습니다.");
@@ -121,14 +128,33 @@ public class Application {
 
         }
     }
-// 여기부터 재시작할 것(회원 로그인후 어떻게 처리할지 논의후 진행)
-    private static int selectModifyInto() throws IOException {
+
+    // 여기부터 재시작할 것(회원 로그인후 어떻게 처리할지 논의후 진행)
+    private static String[][] selectModifyInto() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[][] a = new String[2][];
         System.out.println("1: 별칭");
         System.out.println("2: 비밀번호");
         System.out.println("3: 나의 카테고리");
         System.out.print("수정하고 싶으신 정보의 번호를 입력해주세요.");
-        return Integer.valueOf(br.readLine());
+        a[0] = new String[1];
+        a[0][0] = br.readLine().trim();
+        if (a[0][0].equals("1") || a[0][0].equals("2")) {
+            System.out.println("변경하실 것을 입력해주세요.");
+            a[1] = new String[1];
+            a[1][0] = br.readLine().trim();
+        } else if (a[0][0].equals("3")) {
+            System.out.println("총 몇 개로 수정하시겠습니까?");
+            int T = Integer.valueOf(br.readLine().trim());
+            a[1] = new String[T];
+            for (int i = 0; i < T; i++) {
+                a[1][i] = br.readLine().trim();
+            }
+        } else {
+            System.out.println("잘못 입력하셨습니다.");
+        }
+
+        return a;
     }
 
 
@@ -164,7 +190,7 @@ public class Application {
     }
 
     private static Member signUp() throws IOException {
-        Member newMember = null;
+        Member newMember = new Member();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -195,7 +221,7 @@ public class Application {
                 System.out.println("잘못 입력하였습니다.");
         }
 
-        System.out.print("입력할 나만의 카테고리를 입력하시오. ");
+        System.out.print("입력할 나만의 카테고리의 개수를 입력하시오. ");
         int length = Integer.valueOf(br.readLine().trim());
         String[] myCategory = new String[length];
         for (int i = 0; i < myCategory.length; i++) {

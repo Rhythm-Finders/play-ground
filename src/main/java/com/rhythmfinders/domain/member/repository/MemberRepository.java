@@ -3,6 +3,7 @@ package com.rhythmfinders.domain.member.repository;
 import com.rhythmfinders.domain.member.aggregate.Gender;
 import com.rhythmfinders.domain.member.aggregate.Member;
 import com.rhythmfinders.domain.member.aggregate.Role;
+import com.rhythmfinders.domain.member.run.Application;
 import com.rhythmfinders.domain.member.stream.MyObjectOuput;
 
 import java.io.*;
@@ -18,7 +19,7 @@ public class MemberRepository {
             ArrayList<Member> defaultMembers = new ArrayList<>();
             defaultMembers.add(new Member(1, "CHUL", "chul1@gmail.com", "pass01", "김철수", 15, Gender.M, new String[]{"생활", "게임"}, Role.USER, false));
             defaultMembers.add(new Member(2, "YOUNG", "young3@naver.com", "pass01", "김철수", 19, Gender.F, new String[]{"뷰티", "뜨개질"}, Role.USER, false));
-            defaultMembers.add(new Member(3, "G-Dragon", "Gyoung0@hanmail.com", "pass01", "김철수", 41, Gender.M, new String[]{"IT", "운동"}, Role.USER, false));
+            defaultMembers.add(new Member(3, "G-Dragon", "Gyoung0@hanmail.com", "pass01", "김철수", 41, Gender.M, new String[]{"IT", "운동"}, Role.ADMIN, false));
 
             saveMembers(file, defaultMembers);
         }
@@ -113,6 +114,7 @@ public class MemberRepository {
         int result = 0;
         for (int i = 0; i < membersList.size(); i++) {
             if (membersList.get(i).getEmail().equals(ePw[0]) && membersList.get(i).getPassword().equals(ePw[1])) {
+                Application.memNo = membersList.get(i).getId();
                 membersList.get(i).setFlag(true);
                 saveMembers(file, membersList);
                 if(membersList.get(i).getRole() == Role.USER){
@@ -124,7 +126,7 @@ public class MemberRepository {
         }
 
 
-        return 0;
+        return result;
     }
 
     public Member findId(int memNo) {
@@ -134,5 +136,81 @@ public class MemberRepository {
             }
         }
         return null;
+    }
+
+    public int modifyNickName(String[] val) {
+        int result = 0;
+        for(Member member : membersList){
+            if(member.getId() == Application.memNo){
+                member.setNickname(val[0]);
+                return result;
+            }
+        }
+        return result;
+    }
+
+    public int modifyPassword(String[] val) {
+        int result = 0;
+        for(Member member : membersList){
+            if(member.getId() == Application.memNo){
+                member.setPassword(val[0]);
+                return result;
+            }
+        }
+        return result;
+    }
+
+    public int modifyMyCategory(String[] val) {
+        int result = 0;
+        for(Member member : membersList){
+            if(member.getId() == Application.memNo){
+                for(int i=0;i<val.length;i++){
+                    member.setMyCategory(new String[]{val[1]});
+                }
+                saveMembers(file, membersList);
+                return result;
+            }
+        }
+        return result;
+    }
+
+    public int deleteMember(int n) {
+        for(Member member : membersList){
+            if(member.getId() == n){
+                membersList.remove(member);
+            }
+            saveMembers(file, membersList);
+            return 1;
+        }
+        return 0;
+    }
+
+    public int logoutMember(int memNo) {
+        for(Member member : membersList){
+            if(member.getId() == memNo){
+                member.setFlag(false);
+                saveMembers(file, membersList);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    public int findOneMember(int memNo) {
+        for(Member member : membersList){
+            if(member.getId() == memNo){
+                System.out.println(member);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    public int findAllMember() {
+        if(membersList.size() == 0) return 0;
+        for(Member member : membersList){
+            System.out.println(member);
+        }
+        return 1;
     }
 }

@@ -125,14 +125,4 @@ public class Member implements Serializable {
                 ", flag=" + flag +
                 '}';
     }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }
