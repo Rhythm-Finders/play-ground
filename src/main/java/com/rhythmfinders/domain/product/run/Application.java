@@ -9,12 +9,13 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Application {
+
     private static final ProductService ps = new ProductService();
 
     public static void main(String[] args) {
-        /* 설명. 여기서 메뉴는 요구사항 명세이다.
-         * */
+        /* 설명. 여기서 메뉴는 요구사항 명세이다. */
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         while(true){
             System.out.println("===== 상품 관리 프로그램 =====");
             System.out.println("1. 모든 상품 정보 보기");
