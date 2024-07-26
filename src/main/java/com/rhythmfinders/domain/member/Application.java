@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 public class Application {
 
     private static final MemberService memberService = new MemberService();
-
+    //현재 로그인한 멤버 num 저장
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

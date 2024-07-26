@@ -38,6 +38,8 @@ public class MemberService {
         for(Member member : memberList) {
             if(member.getEmail().equals(loginInfo.getEmail()) && member.getPw().equals(loginInfo.getPw())){
                 System.out.println("로그인 성공");
+                member.setFlag(true);
+                memberRepository.saveMembers(memberList);
                 return 1;
             }
         }
@@ -73,6 +75,7 @@ public class MemberService {
     }
 
     public void modifyMemberBy() {
+        회원 정보를 끌고와서 flag
     }
 
     public void removeMemberBy() {
