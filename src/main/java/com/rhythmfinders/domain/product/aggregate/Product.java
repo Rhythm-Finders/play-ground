@@ -12,7 +12,7 @@ public class Product implements Serializable {
     private String pCompany;    // 제조사
     private PType pType;
     private int pNum;           // 상품구매개수
-    private boolean isSale;     // 할인여부
+    private boolean isSale;     // 할인여부, 일괄 할인
 
     public Product() {
     }
@@ -29,6 +29,15 @@ public class Product implements Serializable {
         this.pType = pType;
         this.pNum = pNum;
         this.isSale = isSale;
+    }
+
+    public Product(String pName, int pPrice, String pPicture, String pInfo, int pStock, String pCompany, PType ptype) {
+        this.pName = pName;
+        this.pPrice = pPrice;
+        this.pPicture = pPicture;
+        this.pInfo = pInfo;
+        this.pStock = pStock;
+        this.pCompany = pCompany;
     }
 
     public int getpId() {
