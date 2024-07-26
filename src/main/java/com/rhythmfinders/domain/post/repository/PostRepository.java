@@ -90,4 +90,41 @@ public class PostRepository {
 
         return resultSet;
     }
+
+    public int deletePost(int removePost) {
+        int result = 0;
+            for (Post post : postListInstance) {
+                if (post.getPostId() == removePost) {
+                    post.setPostId(null);
+                }
+            }
+
+            result = 1;
+        return result;
+    }
+
+    public int updatePost(Post reform) {
+        for (int i = 0; i < postListInstance.size(); i++) {
+            Post iPost = postListInstance.get(i);
+            if (iPost.getPostId() == reform.getPostId()) {
+                System.out.println("==== 수정 전 기존 회원 정보와의 비교 ====");
+                System.out.println("수정 내역: " + reform);
+                System.out.println("iPost: " + iPost);
+
+                postListInstance.set(i, reform);
+
+                // db내역
+                savePosts(postListInstance);
+
+                if (iPost.equals(reform)) return  1;
+            }
+        } return 0;
+    }
+
+    public Post selectPost(int postId) {
+        for (Post post : postListInstance) {
+            if (post.getPostId() == postId) return post;
+        }
+        return null;
+    }
 }

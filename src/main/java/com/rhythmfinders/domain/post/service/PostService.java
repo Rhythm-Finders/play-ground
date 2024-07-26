@@ -12,6 +12,7 @@ public class PostService {
         Post post = new Post();
         int result = postRepository.registPost(newPostInfo);
         if (result == 1) {
+            System.out.println(newPostInfo.getPostTitle() + "작성되었습니다.");
             // TODO
             //  Post post = postRepository.selectPost(recent postId)
             //  return post
@@ -23,4 +24,52 @@ public class PostService {
         ArrayList<Post> postList = postRepository.selectAllPost();
         return postList;
     }
+
+    public void removePost(int removePost) {
+        int result = postRepository.deletePost(removePost);
+        if (result == 1) {
+            System.out.println("글이 삭제되었습니다.");
+            return;
+        }
+        System.out.println("글을 삭제하실 건가요?");
+    }
+
+    public void modifyPost(Post reform) {
+        int result = postRepository.updatePost(reform);
+        if (result == 1) {
+            System.out.println("수정 완료");
+            return;
+        }
+        System.out.println("수정 내역없음");
+    }
+
+    public Post findPostForModi(int postId) {
+        Post selectedPost = postRepository.selectPost(postId);
+
+        if (selectedPost != null) {
+            Post newInstance = new Post();
+            newInstance.setPostId(selectedPost.postId);
+            newInstance.setPostTitle(selectedPost.postTitle);
+            newInstance.setPostContents(selectedPost.postContents);
+            newInstance.setMember(selectedPost.member);
+            newInstance.setCreateDate(selectedPost.createDate); // 수정되면 수정 일자 어떻게
+//            newInstance.getView(selectedPost.view); 조회수 확인 기능....
+
+            System.out.println("조회된 게시글은 [" + newInstance.getPostTitle() + "] 입니다.");
+            return newInstance;
+        } else {
+            System.out.println("그런 게시글은 없습니다.");
+        }
+        return null;
+    }
+
+    public void findMyPost(int postId) {
+        Post selectedPost = postRepository.selectPost(postId);
+        if (selectedPost != null) {
+            System.out.println("조회된 게시글은 [" + selectedPost.getPostTitle() + "] 입니다.");
+        } else {
+            System.out.println("찾으시는 상품 게시글은 없습니다.");
+        }
+    }
 }
+

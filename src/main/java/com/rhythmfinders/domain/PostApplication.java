@@ -2,6 +2,7 @@ package com.rhythmfinders.domain;
 
 import com.rhythmfinders.domain.post.aggregate.Post;
 import com.rhythmfinders.domain.post.service.PostService;
+import com.sun.source.tree.BreakTree;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -40,15 +41,17 @@ public class PostApplication {
                     break;
                 case "3":
                     // get user's posts with something
-                    // TODO: findPostBy()
+                    postService.findMyPost(choosePostNo());
                     break;
                 case "4":
                     // update post by postId
-                    // TODO: updatePost()
+                    Post selected = postService.findPostForModi(choosePostNo());
+                    if (selected == null) continue;
+                    postService.modifyPost(reform(selected));
                     break;
                 case "5":
                     // delete post by postId
-                    // TODO: deletePost()
+                    postService.removePost(choosePostNo());
                     break;
                 case "9":
                     System.out.println("have a good time~");
@@ -57,10 +60,55 @@ public class PostApplication {
         }
     }
 
+    private static Post reform(Post selected) {
+        Post modifyPost = selected;
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("==== 수정 서브 메뉴 ====");
+            System.out.println("1. 제목");
+            System.out.println("2. 글 내용");
+            System.out.println("0. 메인 메뉴로 돌아가기");
+            System.out.print("내용을 선택하세요: ");
+            int chooseNo = sc.nextInt();
+            sc.nextLine();
+
+            switch (chooseNo) {
+                case 1:
+                    System.out.println("수정 할 제목을 입력하세요: ");
+                    modifyPost.setPostTitle(sc.nextLine());
+                    ;
+                    break;
+                case 2:
+                    System.out.println("수정 할 내용을 입력하세요: ");
+                    modifyPost.setPostContents(sc.nextLine());
+                    break;
+                case 0:
+                    System.out.println("메인 메뉴로 돌아갑니다.");
+                    return selected;
+                default:
+                    System.out.println("수정을 완료해주세요");
+            }
+        }
+    }
+
+    private static int choosePostNo() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("게시글 등록번호를 입력하세요");
+        return sc.nextInt();
+    }
+
 
     private static Post getNewPostInformation() {
+        Post newPost = null;
         Scanner scanner = new Scanner(System.in);
-        System.out.println();
-        return null;
+        System.out.println("제목을 입력하세요: ");
+        String postTitle = scanner.nextLine();
+
+        System.out.println("내용을 입력하세요: ");
+        String postContents = scanner.nextLine();
+
+        newPost = new Post(postTitle, postContents);
+        return newPost;
     }
 }

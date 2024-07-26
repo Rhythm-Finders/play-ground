@@ -15,6 +15,11 @@ public class Post implements Serializable {
     public Post() {
     }
 
+    public Post(String postContents, String postTitle) {
+        this.postContents = postContents;
+        this.postTitle = postTitle;
+    }
+
     public Post(int postId, String postTitle, String postContents, String member, LocalDateTime createDate, LocalDateTime updateDate, int view) {
         this.postId = postId;
         this.postTitle = postTitle;
@@ -30,7 +35,7 @@ public class Post implements Serializable {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
@@ -94,4 +99,5 @@ public class Post implements Serializable {
                 ", view=" + view +
                 '}';
     }
+
 }
