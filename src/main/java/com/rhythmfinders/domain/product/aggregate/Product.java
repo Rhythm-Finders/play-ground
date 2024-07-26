@@ -10,7 +10,7 @@ public class Product implements Serializable {
     private String pInfo;       // 상품상세
     private int pStock;         // 상품재고
     private String pCompany;    // 제조사
-    private PType pType;
+    private PType pType;        // 상품 타입
     private int pNum;           // 상품구매개수
     private boolean isSale;     // 할인여부, 일괄 할인
 

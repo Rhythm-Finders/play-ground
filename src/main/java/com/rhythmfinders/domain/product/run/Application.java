@@ -10,12 +10,14 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Application {
+
     private static final ProductService ps = new ProductService();
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 //        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         while(true){
             System.out.println("===== 상품 관리 프로그램 =====");
             System.out.println("1. 모든 상품 정보 보기");
@@ -36,10 +38,10 @@ public class Application {
                 case 2: ps.findProductBy(choosePid()); break;
                 case 3: ps.registProduct(signUp()); break;
                 case 4: ps.removeProduct(choosePid()); break;
-                case 5:
-                    Product selected = ps.findProductForMod(choosePid());
-                    if(selected != null) continue;
-                    ps.modifyProduct(reform(selected)); break;
+//                case 5:
+//                    Product selected = ps.findProductForMod(choosePid());
+//                    if(selected != null) continue;
+//                    ps.modifyProduct(reform()); break;
                 case 9:
                     System.out.println("상품관리 프로그램을 종료합니다. "); return; //메인 종료
                 default:
@@ -93,16 +95,16 @@ public class Application {
         return newProduct;
     }
     /* 설명. 매개변수가 많아서, 가공 처리를 하는 것*/
-    private static Product reform() {
-        Product modifiedProduct = null;
-        Scanner sc = new Scanner(System.in);
-
-        while(true){
-            System.out.println("==== 상품 수정 메뉴 ====");
-            System.out.println("1. ");
-        }
-
-    }
+//    private static Product reform() {
+//        Product modifiedProduct = null;
+//        Scanner sc = new Scanner(System.in);
+//
+//        while(true){
+//            System.out.println("==== 상품 수정 메뉴 ====");
+//            System.out.println("1. ");
+//        }
+//
+//    }
 
     /* 설명. 회원 ID를 입력받아 반환하는 메소드 */
     private static int choosePid() {
