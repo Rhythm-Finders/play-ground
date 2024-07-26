@@ -32,7 +32,7 @@ public class ProductService {
         int result = pr.insertProduct(newProduct);
         if(result == 1)
             System.out.println("상품번호: " +newProduct.getpId() + "번 " +
-                    newProduct.getpNum() + "이(가) 등록되었습니다.");
+                    newProduct.getpName() + "이(가) 등록되었습니다.");
     }
 
     public void removeProduct(int removeProduct) {
