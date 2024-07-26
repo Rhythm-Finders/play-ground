@@ -2,6 +2,7 @@ package com.rhythmfinders.domain.product.repository;
 
 import com.rhythmfinders.domain.product.aggregate.PType;
 import com.rhythmfinders.domain.product.aggregate.Product;
+import com.rhythmfinders.domain.product.stream.MyObjectOutput;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -55,7 +56,6 @@ public class ProductRepository {
         }
     }
 
-
     private void printDefaultProduct(File file, ArrayList<Product> Products) {
 
         ObjectOutputStream oos = null;
@@ -65,7 +65,7 @@ public class ProductRepository {
                             new FileOutputStream("src/main/java/com/rhythmfinders/domain/product/db/ProductDB.dat")));
 
             Iterator<Product> iterator = ProductList.iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
 
             }
 
@@ -73,11 +73,56 @@ public class ProductRepository {
             throw new RuntimeException(e);
         } finally {
             try {
-                if(oos != null) oos.close();
+                if (oos != null) oos.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
+    }
+
+    public int insertProduct(Product newProduct) {
+
+        MyObjectOutput moo = null;
+
+        int result = 0;
+        try {
+            moo = new MyObjectOutput(
+                    new BufferedOutputStream(
+                            new FileOutputStream("src/main/java/com/rhythmfinders/domain/product/db/productDB.dat"
+                                    , true)));
+            moo.writeObject(newProduct);
+            ProductList.add(newProduct);
+            result = 1;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (moo != null) moo.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return result;
+        }
+    }
+
+    public int selectLastpId() {
+        Product lastProduct = ProductList.get(ProductList.size() - 1);
+        return lastProduct.getpId();
+    }
+
+
+    public int deleteProduct(int removeProduct) {
+        int result = 0;
+        for(int i=0; i< ProductList.size(); i++) {
+            if(ProductList.get(i).getpId() == removeProduct) {
+                ProductList.remove(i);
+
+                File file = new File("src/main/java/com/rhythmfinders/domain/product/db/productDB.dat");
+                printDefaultProduct(file, ProductList);
+                return 1;
+            }
+        }
+        return 0;
     }
 }
