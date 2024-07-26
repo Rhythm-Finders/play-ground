@@ -17,7 +17,7 @@ public class ProductRepository {
 
         File file = new File("src/main/java/com/rhythmfinders/domain/product/db/ProductDB.dat");
 
-        if(!(file.exists())){
+        if(!file.exists()){
             ArrayList<Product> defaultProduct = new ArrayList<>();
             defaultProduct.add(new Product(1, "햄버거", 6800, "www.mcdonals.co.kr/jpg1" ,
                     "www.mcdonalds.co.kr/info1", 30, "맥도날드", PType.FOOD, 2, true));
@@ -32,20 +32,38 @@ public class ProductRepository {
                     ,4, true));
 
             /* 설명. 초기 넣은 4개의 데이터를 출력해보는 메소드*/
-            printDefaultProduct(file, ProductList);
+            saveProduct(file, defaultProduct);
         }
 
-        loadProduct(file, ProductList);
+        /* 설명. File에 저장된 정보를 ProductList에 저장*/
+        loadProduct(file);
+
+        /* 설명. 임시로 들어간 파일 출력해 보기 */
+        Iterator<Product> iter = ProductList.iterator();
+        while(iter.hasNext()){
+            System.out.println("Product: " + iter.next());
+        }
+
     }
 
-    private void loadProduct(File file, ArrayList<Product> Products) {
+    private void loadProduct(File file) {
 
+        /* 설명. InputStream은 외부 File에서 내부 repository로 받아오는 역할 */
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(
                     new BufferedInputStream(
                             new FileInputStream("src/main/java/com/rhythmfinders/domain/product/db/ProductDB.dat")));
+
+            /* 설명. 외부 파일로 부터 받아와서 내부 Array에 저장 */
+            while(true){
+                ProductList.add((Product) ois.readObject());
+            }
+        } catch (EOFException e ){
+            System.out.println("default 파일 정보 불러오기 ");
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             try {
@@ -56,19 +74,20 @@ public class ProductRepository {
         }
     }
 
-    private void printDefaultProduct(File file, ArrayList<Product> Products) {
+    private void saveProduct(File file, ArrayList<Product> Products) {
 
+        /* 설명. OutputStream은 repository의 파일을 외부 File로 보내는 역할.*/
         ObjectOutputStream oos = null;
         try {
             oos = new ObjectOutputStream(
                     new BufferedOutputStream(
-                            new FileOutputStream("src/main/java/com/rhythmfinders/domain/product/db/ProductDB.dat")));
+                            new FileOutputStream(file)));
 
-            Iterator<Product> iterator = ProductList.iterator();
-            while (iterator.hasNext()) {
-
+            /* 설명. 회원 정보로 저장된 정보를 출력*/
+            Iterator<Product> iter = Products.iterator();
+            while (iter.hasNext()) {
+               oos.writeObject(iter.next());
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -78,7 +97,10 @@ public class ProductRepository {
                 throw new RuntimeException(e);
             }
         }
+    }
 
+    public ArrayList<Product> selectAllProduct(){
+        return ProductList;
     }
 
     public int insertProduct(Product newProduct) {
@@ -119,7 +141,7 @@ public class ProductRepository {
                 ProductList.remove(i);
 
                 File file = new File("src/main/java/com/rhythmfinders/domain/product/db/productDB.dat");
-                printDefaultProduct(file, ProductList);
+                saveProduct(file, ProductList);
                 return 1;
             }
         }
