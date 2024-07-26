@@ -1,4 +1,4 @@
-package com.rhythmfinders.domain.product;
+package com.rhythmfinders.domain.product.run;
 
 public class Application {
     public static void main(String[] args) {
