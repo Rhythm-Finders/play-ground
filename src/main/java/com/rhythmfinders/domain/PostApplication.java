@@ -6,7 +6,7 @@ import com.rhythmfinders.domain.post.service.PostService;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Application {
+public class PostApplication {
 
     // executed with staring program
     private static final PostService postService = new PostService();
@@ -36,7 +36,7 @@ public class Application {
                     break;
                 case "2":
                     // write post with memberId
-                    postService.writePost(getNewPostInforamtion());
+                    postService.writePost(getNewPostInformation());
                     break;
                 case "3":
                     // get user's posts with something
@@ -58,7 +58,7 @@ public class Application {
     }
 
 
-    private static Post getNewPostInforamtion() {
+    private static Post getNewPostInformation() {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
         return null;
