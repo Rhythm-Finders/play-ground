@@ -23,13 +23,12 @@ public class MemberRepository {
         }
     }
 
-    private void saveMembers(ArrayList<Member> defaultMembers) {
+    public void saveMembers(ArrayList<Member> defaultMembers) {
         ObjectOutputStream oos = null;
 
         try {
             oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
 
-            /* 설명. 초기 회원 세 명을 각각 객체 출력 내보내기 */
             for(Member member : defaultMembers)
                 oos.writeObject(member);
 
@@ -45,7 +44,7 @@ public class MemberRepository {
         }
     }
 
-    private ArrayList<Member> loadMembers() {
+    public ArrayList<Member> loadMembers() {
         ArrayList<Member> memberList = new ArrayList<>();
 
         ObjectInputStream ois = null;
@@ -74,37 +73,8 @@ public class MemberRepository {
         return memberList;
     }
 
-    public int saveMember(Member newMember) {
-        ArrayList<Member> memberList = loadMembers();
-
-        try {
-            newMember.setRole(Role.USER);
-            newMember.setId(memberList.get(memberList.size()-1).getId() + 1);
-            memberList.add(newMember);
-            saveMembers(memberList);
-
-            System.out.println("회원가입된 User의 정보는 : " + newMember);
-
-            return 1;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
     public ArrayList<Member> selectAllMember() {
         return loadMembers();
     }
 
-    public int existMemberByEmailandPw(MemberLoginInfo loginInfo) {
-        ArrayList<Member> memberList = loadMembers();
-
-        for(Member member : memberList) {
-            if(member.getEmail().equals(loginInfo.getEmail()) && member.getPw().equals(loginInfo.getPw()))
-                return 1;
-        }
-        return 0;
-    }
 }
