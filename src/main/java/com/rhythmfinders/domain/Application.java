@@ -3,8 +3,7 @@ package com.rhythmfinders.domain;
 import com.rhythmfinders.domain.post.aggregate.Post;
 import com.rhythmfinders.domain.post.service.PostService;
 
-import java.lang.reflect.Member;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Application {
@@ -25,17 +24,19 @@ public class Application {
             System.out.println("5. 글 삭제하기");
             System.out.println("9. 프로그램 종료");
             System.out.print("메뉴를 선택해주세요: ");
-            System.out.println();
             Scanner scanner = new Scanner(System.in);
             String userOption = scanner.nextLine();
             switch (userOption) {
                 case "1":
                     // get all existing posts
-                    // TODO: findAllPosts()
+                    ArrayList<Post> posts = postService.findAllPosts();
+                    for (Post post : posts) {
+                        System.out.println(post);
+                    }
                     break;
                 case "2":
                     // write post with memberId
-                    Post post = postService.writePost(getNewPostInforamtion());
+                    postService.writePost(getNewPostInforamtion());
                     break;
                 case "3":
                     // get user's posts with something
