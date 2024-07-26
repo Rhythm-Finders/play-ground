@@ -3,6 +3,9 @@ package com.rhythmfinders.domain.product.service;
 import com.rhythmfinders.domain.product.aggregate.Product;
 import com.rhythmfinders.domain.product.repository.ProductRepository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class ProductService {
 
     /* 설명. Repository를 Service 내부에서만 불러서 사용하기 위해서 private final 객체 생성*/
@@ -12,7 +15,12 @@ public class ProductService {
     }
 
     public void findAllProducts() {
+        ArrayList<Product> findProduct = pr.selectAllProduct();
 
+        Iterator<Product> iter = findProduct.iterator();
+        while(iter.hasNext()){
+            System.out.println("Product: " + iter.next());
+        }
     }
 
     public void findProductBy(int i) {
