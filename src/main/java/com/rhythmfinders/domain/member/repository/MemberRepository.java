@@ -33,7 +33,7 @@ public class MemberRepository {
                     new BufferedInputStream(
                             new FileInputStream(file)));
             while (true) {
-                membersList.add((Member) ois.readObject());
+                membersList.add((Member)ois.readObject());
             }
 
         } catch (EOFException e) {

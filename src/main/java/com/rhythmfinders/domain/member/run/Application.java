@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 public class Application {
 
     private static final MemberService ms = new MemberService();
+    private static int memNo;
 
     public static void main(String[] args) throws IOException {
 
@@ -43,7 +44,6 @@ public class Application {
                 case 9:
                     System.out.println("회원관리 프로그램을 종료합니다.");
                     return;
-                break;
                 default:
                     System.out.println("번호를 잘못 입력하셨습니다.");
                     break;
@@ -55,9 +55,9 @@ public class Application {
 
     private static void secondPage(int r) {
         if (r == 1) {
-            UserPage();
+//            UserPage();
         } else if (r == 2) {
-            AdminPage();
+//            AdminPage();
         }
     }
 
@@ -97,6 +97,8 @@ public class Application {
             System.out.println("=====User 화면=====");
             System.out.println("1. 회원 정보 수정");
             System.out.println("2. 회원 탈퇴");
+            System.out.println("3. 게시판");
+            System.out.println("4. Product");
             System.out.println("9. 로그아웃");
 
             int input = Integer.valueOf(br.readLine());
@@ -106,7 +108,7 @@ public class Application {
                     ms.modifyUserInfo(selectModifyInto());
                     break;
                 case 2:
-                    ms.resignUser();
+//                    ms.resignUser();
                     break;
                 case 9:
                     System.out.println("로그아웃 합니다.");

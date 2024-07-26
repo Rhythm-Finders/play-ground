@@ -63,13 +63,13 @@ public class MemberService {
 
         switch (num){
             case 1:
-                mr.modifyNickName();
+//                mr.modifyNickName();
                 break;
             case 2:
-                mr.modifyPassword()
+//                mr.modifyPassword();
                 break;
             case 3:
-                mr.modifyMyCategory();
+//                mr.modifyMyCategory();
                 break;
             default:
                 System.out.println("잘못 입력하셨습니다.");

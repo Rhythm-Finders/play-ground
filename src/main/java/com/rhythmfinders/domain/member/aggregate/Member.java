@@ -1,8 +1,9 @@
 package com.rhythmfinders.domain.member.aggregate;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Member {
+public class Member implements Serializable {
     private int id;
     private String nickName;
     private String email;
@@ -123,5 +124,15 @@ public class Member {
                 ", role=" + role +
                 ", flag=" + flag +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }
