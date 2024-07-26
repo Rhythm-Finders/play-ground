@@ -32,7 +32,7 @@ public class ProductRepository {
                     ,4, true));
 
             /* 설명. 초기 넣은 4개의 데이터를 출력해보는 메소드*/
-            printDefaultProduct(file, ProductList);
+            saveProduct(file, ProductList);
         }
 
         loadProduct(file, ProductList);
@@ -56,7 +56,7 @@ public class ProductRepository {
         }
     }
 
-    private void printDefaultProduct(File file, ArrayList<Product> Products) {
+    private void saveProduct(File file, ArrayList<Product> Products) {
 
         ObjectOutputStream oos = null;
         try {
@@ -119,8 +119,23 @@ public class ProductRepository {
                 ProductList.remove(i);
 
                 File file = new File("src/main/java/com/rhythmfinders/domain/product/db/productDB.dat");
-                printDefaultProduct(file, ProductList);
+                saveProduct(file, ProductList);
                 return 1;
+            }
+        }
+        return 0;
+    }
+
+    public int updateProduct(Product reform) {
+        for(int i=0; i< ProductList.size(); i++) {
+            Product updateProduct = ProductList.get(i);
+            if(updateProduct.getpId() == reform.getpId()) {
+                ProductList.set(i, reform);
+
+                File file = new File("src/main/java/com/rhythmfinders/domain/product/db/productDB.dat");
+                saveProduct(file, ProductList);
+
+                if(updateProduct.equals(reform)) return 1;
             }
         }
         return 0;

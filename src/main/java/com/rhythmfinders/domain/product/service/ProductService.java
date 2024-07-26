@@ -39,10 +39,18 @@ public class ProductService {
         System.out.println("해당 상품 번호가 존재하지 않습니다. . .");
     }
 
-    public void modifyProduct(int i, Product product) {
+    public void modifyProduct(Product reform) {
+        int result = pr.updateProduct(reform);
+        if(result == 1){
+            System.out.println("수정 성공!");
+            return;
+        }
+
+        System.out.println("수정 내역 없음");
     }
 
-    public Product findProductForMod(int i) {
-        return null;
-    }
+//    public Product findProductForMod(int pid) {
+////        Product selectedProduct = pr.
+//        return null;
+//    }
 }
