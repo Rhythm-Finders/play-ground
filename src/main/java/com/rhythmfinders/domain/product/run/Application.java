@@ -62,6 +62,7 @@ public class Application {
 
         System.out.println("상품가격을 입력하세요: ");
         int pPrice = sc.nextInt();
+        sc.nextLine();
 
         /* 설명. 주소값을 입력 */
         System.out.println("상품사진을 입력하세요: ");
@@ -73,6 +74,7 @@ public class Application {
 
         System.out.println("상품재고를 입력하세요: ");
         int pStock = sc.nextInt();
+        sc.nextLine();
 
         System.out.println("제조사를 입력하세요: ");
         String pCompany = sc.nextLine();
@@ -87,24 +89,79 @@ public class Application {
             case "DEVICE": pT = PType.DEVICE; break;
             case "BEAUTY": pT = PType.BEAUTY; break;
         }
-
-        new Product(pName, pPrice, pPicture, pInfo, pStock, pCompany, pT);
-
+        
         newProduct = new Product(pName, pPrice, pPicture, pInfo,pStock, pCompany, pT);
 
         return newProduct;
     }
+
     /* 설명. 매개변수가 많아서, 가공 처리를 하는 것*/
-//    private static Product reform() {
-//        Product modifiedProduct = null;
-//        Scanner sc = new Scanner(System.in);
-//
-//        while(true){
-//            System.out.println("==== 상품 수정 메뉴 ====");
-//            System.out.println("1. ");
-//        }
-//
-//    }
+    private static Product reform(Product selected) {
+        Product modifiedProduct = selected;
+        Scanner sc = new Scanner(System.in);
+
+        while(true){
+            System.out.println("==== 상품 수정 메뉴 ====");
+            System.out.println("1. 상품이름");
+            System.out.println("2. 상품가격");
+            System.out.println("3. 상품사진");
+            System.out.println("4. 상품상세");
+            System.out.println("5. 상품재고");
+            System.out.println("6. 할인여부");
+            System.out.println("7. 메인 메뉴로 돌아가기");
+            System.out.println("내용을 선택하세요: ");
+
+            int choosePid = sc.nextInt();
+            sc.nextLine();
+
+            switch(choosePid){
+                case 1:
+                    System.out.println("수정 할 상품이름을 입력하세요: ");
+                    modifiedProduct.setpName(sc.nextLine());
+                    break;
+                case 2:
+                    System.out.println("수정 할 상품가격을 입력하세요: ");
+                    modifiedProduct.setpPrice(sc.nextInt());
+                    break;
+                case 3:
+                    System.out.println("수정 할 상품사진을 입력하세요: ");
+                    modifiedProduct.setpPicture(sc.nextLine());
+                    break;
+                case 4:
+                    System.out.println("수정 할 상품상세를 입력하세요: ");
+                    modifiedProduct.setpInfo(sc.nextLine());
+                    break;
+                case 5:
+                    System.out.println("수정 할 상품재고를 입력하세요: ");
+                    modifiedProduct.setpStock(sc.nextInt());
+                    break;
+                case 6:
+                    System.out.println("할인여부를 입력하세요(네,아니오): ");
+                    String chkSale = sc.nextLine();
+                    checkSale(modifiedProduct, chkSale);
+                    break;
+                case 7:
+                    System.out.println("메인 메뉴로 돌아갑니다.");
+                    return selected;
+                default:
+                    System.out.println("번호를 다시 제대로 입력해 주세요: ");
+            }
+
+            return modifiedProduct;
+        }
+
+    }
+
+    private static void checkSale(Product modifiedProduct, String chkSale) {
+        boolean chkSaleFlag = modifiedProduct.isSale();
+        if(chkSale.equals("네")){
+            chkSaleFlag = true;
+        }
+        else if(chkSale.equals("아니오")){
+            chkSaleFlag = false;
+        }
+        modifiedProduct.setSale(chkSaleFlag);
+    }
 
     /* 설명. 회원 ID를 입력받아 반환하는 메소드 */
     private static int choosePid() {
