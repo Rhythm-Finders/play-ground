@@ -123,6 +123,7 @@ public class PostRepository {
     }
 
     public int updatePost(Post reform) {
+        reform.setUpdateDate(LocalDateTime.now());
         int result = 0;
         for (int i = 0; i < postListInstance.size(); i++) {
             if (postListInstance.get(i).getPostId() == reform.getPostId()) {
@@ -136,8 +137,19 @@ public class PostRepository {
     }
 
     public Post selectPost(int postId) {
-        for (Post post : postListInstance) {
-            if (post.getPostId() == postId) return post;
+        for (int i = 0; i < postListInstance.size(); i++) {
+            Post post = postListInstance.get(i);
+            if (post.getPostId() == postId) {
+                Post returnPost = new Post();
+                returnPost.setPostId(postId);
+                returnPost.setPostTitle(post.getPostTitle());
+                returnPost.setPostContents(post.getPostContents());
+                returnPost.setMember(post.getMember());
+                returnPost.setCreateDate(post.getCreateDate());
+                returnPost.setUpdateDate(post.getCreateDate());
+                returnPost.setView(post.getView());
+                return returnPost;
+            }
         }
         return null;
     }

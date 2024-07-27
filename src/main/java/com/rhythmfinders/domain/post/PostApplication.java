@@ -46,10 +46,10 @@ public class PostApplication {
                 case "4":
                     // update post by postId
                     int postId = choosePostNo();
-                    if (postService.findPostByPostId(postId) == null) break;
-                    Post reformPost = setPostInformation(postId);
+                    Post post = postService.findPostByPostId(postId);
+                    if (post == null) break;
+                    Post reformPost = setPostInformation(post);
                     if (reformPost == null) {
-                        System.out.println("you got wrong with post information. Try again");
                         break;
                     } else {
                         postService.modifyPost(reformPost);
@@ -66,34 +66,35 @@ public class PostApplication {
         }
     }
 
-    private static Post setPostInformation(int postId) {
-        Post modifyPost = new Post();
-        modifyPost.setPostId(postId);
+    private static Post setPostInformation(Post post) {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
             System.out.println("==== 수정 서브 메뉴 ====");
             System.out.println("1. 제목");
             System.out.println("2. 글 내용");
-            System.out.println("0. 메인 메뉴로 돌아가기");
-            System.out.print("내용을 선택하세요: ");
+            System.out.println("9. 수정 취소");
+            System.out.println("0. 수정 완료");
+            System.out.print("서브 메뉴를 선택하세요: ");
             int chooseNo = sc.nextInt();
             sc.nextLine();
 
             switch (chooseNo) {
                 case 1:
-                    System.out.println("수정 할 제목을 입력하세요: ");
-                    modifyPost.setPostTitle(sc.nextLine());
+                    System.out.print("수정 할 제목을 입력하세요: ");
+                    post.setPostTitle(sc.nextLine());
                     break;
                 case 2:
-                    System.out.println("수정 할 내용을 입력하세요: ");
-                    modifyPost.setPostContents(sc.nextLine());
+                    System.out.print("수정 할 내용을 입력하세요: ");
+                    post.setPostContents(sc.nextLine());
                     break;
-                case 0:
+                case 9:
                     System.out.println("메인 메뉴로 돌아갑니다.");
                     return null;
+                case 0:
+                    return post;
                 default:
-                    System.out.println("수정을 완료해주세요");
+                    System.out.println("잘못 입력하셨습니다.");
             }
         }
     }

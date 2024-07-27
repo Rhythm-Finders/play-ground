@@ -92,8 +92,7 @@ public class Post implements Serializable {
         return "postId: " + postId + "\n" +
                 "postTitle: '" + postTitle + "', postContents: '" + postContents + '\'' + "\n" +
                 "member: '" + member + '\'' + "\n" +
-                "createDate: " + createDate +
-                "updateDate: " + updateDate + "\n" +
+                "createDate: " + createDate + ", updateDate: " + updateDate + "\n" +
                 "조회수: " + view;
     }
 
