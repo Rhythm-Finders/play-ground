@@ -1,6 +1,6 @@
 package com.rhythmfinders.domain.post;
 
-public class Application {
+public class PostApplication {
     public static void main(String[] args) {
 
         System.out.println("hello post");
