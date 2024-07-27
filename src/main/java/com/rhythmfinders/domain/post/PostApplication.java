@@ -101,10 +101,10 @@ public class PostApplication {
     private static Post getNewPostInformation() {
         Post newPost = null;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("제목을 입력하세요: ");
+        System.out.print("제목을 입력하세요: ");
         String postTitle = scanner.nextLine();
 
-        System.out.println("내용을 입력하세요: ");
+        System.out.print("내용을 입력하세요: ");
         String postContents = scanner.nextLine();
 
         newPost = new Post(postTitle, postContents);

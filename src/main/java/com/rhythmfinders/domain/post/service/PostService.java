@@ -3,15 +3,20 @@ package com.rhythmfinders.domain.post.service;
 import com.rhythmfinders.domain.post.aggregate.Post;
 import com.rhythmfinders.domain.post.repository.PostRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PostService {
     private final PostRepository postRepository = new PostRepository();
 
     public void writePost(Post newPostInfo) {
-        int lastPostNo = postRepository.selectLastPostNo();
-        Post post = new Post();
-        int result = postRepository.registPost(newPostInfo, lastPostNo);
+        newPostInfo.setPostId(postRepository.selectLastPostNo());
+        // TODO: set member information
+//        newPostInfo.setMember(memberId);
+        newPostInfo.setCreateDate(LocalDateTime.now());
+        newPostInfo.setUpdateDate(LocalDateTime.now());
+        newPostInfo.setView(0);
+        int result = postRepository.insertPost(newPostInfo);
         if (result == 1) {
             System.out.println(newPostInfo.getPostTitle() + "작성되었습니다.");
             // TODO

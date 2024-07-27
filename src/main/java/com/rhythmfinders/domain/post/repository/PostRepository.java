@@ -1,6 +1,7 @@
 package com.rhythmfinders.domain.post.repository;
 
 import com.rhythmfinders.domain.post.aggregate.Post;
+import com.rhythmfinders.domain.post.stream.MyObjectOutput;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -78,14 +79,28 @@ public class PostRepository {
         }
     }
 
-    // TODO: return Post
-//    public Post registPost(Post newPostInfo) {
-    public int registPost(Post newPostInfo, int lastPostNo) {
-        // TODO: input post
-        newPostInfo.setPostId(lastPostNo);
-        postListInstance.add(newPostInfo);
-        // file에 넣어야합니다.
-        return 0;
+    public int insertPost(Post newPost) {
+        MyObjectOutput moo = null;
+        int result = 0;
+        try {
+            moo = new MyObjectOutput(new BufferedOutputStream(new FileOutputStream(postDBPath, true)));
+
+            moo.writeObject(newPost);
+            postListInstance.add(newPost);
+            result = 1;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }  catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (moo != null) moo.close();
+            } catch(IOException e){
+                throw new RuntimeException(e);
+            }
+        }
+
+        return result;
     }
 
     public ArrayList<Post> selectAllPost() {
