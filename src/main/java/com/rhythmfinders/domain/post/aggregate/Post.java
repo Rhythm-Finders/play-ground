@@ -89,15 +89,12 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
-        return "Post{" +
-                "postId=" + postId +
-                ", postTitle='" + postTitle + '\'' +
-                ", postContents='" + postContents + '\'' +
-                ", member='" + member + '\'' +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", view=" + view +
-                '}';
+        return "postId: " + postId + "\n" +
+                "postTitle: '" + postTitle + "', postContents: '" + postContents + '\'' + "\n" +
+                "member: '" + member + '\'' + "\n" +
+                "createDate: " + createDate +
+                "updateDate: " + updateDate + "\n" +
+                "조회수: " + view;
     }
 
 }
