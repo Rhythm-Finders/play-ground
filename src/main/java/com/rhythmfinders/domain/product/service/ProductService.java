@@ -15,15 +15,24 @@ public class ProductService {
     }
 
     public void findAllProducts() {
-        ArrayList<Product> findProduct = pr.selectAllProduct();
+        ArrayList<Product> findTotalProduct = pr.selectAllProduct();
 
-        Iterator<Product> iter = findProduct.iterator();
+        Iterator<Product> iter = findTotalProduct.iterator();
         while(iter.hasNext()){
             System.out.println("Product: " + iter.next());
         }
     }
 
-    public void findProductBy(int i) {
+    public void findProductBy(int pId) {
+
+        Product product = pr.selectProduct(pId);
+
+        if(product != null){
+            System.out.println("찾으시는 product 정보: " + product);
+        }
+        else{
+            System.out.println("잘못된 번호를 입력하셨습니다.");
+        }
     }
 
     public void registProduct(Product newProduct) {

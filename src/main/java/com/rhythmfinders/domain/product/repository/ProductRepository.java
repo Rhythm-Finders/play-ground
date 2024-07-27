@@ -147,4 +147,14 @@ public class ProductRepository {
         }
         return 0;
     }
+
+    public Product selectProduct(int pId) {
+
+        for(Product prod: ProductList){
+            if(prod.getpId() == pId){
+                return prod;
+            }
+        }
+        return null;
+    }
 }

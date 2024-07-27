@@ -109,7 +109,7 @@ public class Application {
     /* 설명. 회원 ID를 입력받아 반환하는 메소드 */
     private static int choosePid() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("회원의 번호를 입력하세요: ");
+        System.out.println("상품의 번호를 입력하세요: ");
         return sc.nextInt();
     }
 
