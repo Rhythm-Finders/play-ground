@@ -13,6 +13,7 @@ public class PostRepository {
     public PostRepository() {
 
         File file = new File(postDBPath);
+        System.out.println(file);
 
         if (!file.exists()) {
             postListInstance.add(
@@ -61,7 +62,6 @@ public class PostRepository {
         ObjectOutputStream oos = null;
         try {
             oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("src/main/java/com/rhythmfinders/domain/post/db/postDB.dat")));
-
             for (Post post : posts) {
                 oos.writeObject(post);
             }

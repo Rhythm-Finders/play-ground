@@ -1,8 +1,7 @@
-package com.rhythmfinders.domain;
+package com.rhythmfinders.domain.post;
 
 import com.rhythmfinders.domain.post.aggregate.Post;
 import com.rhythmfinders.domain.post.service.PostService;
-import com.sun.source.tree.BreakTree;
 
 import java.util.ArrayList;
 import java.util.Scanner;
