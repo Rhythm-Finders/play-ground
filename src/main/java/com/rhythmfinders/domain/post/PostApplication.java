@@ -33,6 +33,7 @@ public class PostApplication {
                     for (Post post : posts) {
                         System.out.println(post);
                     }
+                    System.out.println(posts.size() + " posts loaded");
                     break;
                case "2":
                     // write post with memberId
@@ -93,7 +94,7 @@ public class PostApplication {
 
     private static int choosePostNo() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("게시글 등록번호를 입력하세요");
+        System.out.print("게시글 등록번호를 입력하세요: ");
         return sc.nextInt();
     }
 

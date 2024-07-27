@@ -109,16 +109,16 @@ public class PostRepository {
         return resultSet;
     }
 
-    public int deletePost(int removePost) {
+    public int deletePost(int postId) {
         int result = 0;
-            for (Post post : postListInstance) {
-                if (post.getPostId() == removePost) {
-                    postListInstance.remove(post);
-                    return 1;
-                    // file 정리해주세여!!
-                }
+        for (Post post : postListInstance) {
+            if (post.getPostId() == postId) {
+                postListInstance.remove(post);
+                savePosts(postListInstance);
+                result = 1;
+                return result;
             }
-
+        }
         return result;
     }
 

@@ -31,8 +31,8 @@ public class PostService {
         return postList;
     }
 
-    public void removePost(int removePost) {
-        int result = postRepository.deletePost(removePost);
+    public void removePost(int postId) {
+        int result = postRepository.deletePost(postId);
         if (result == 1) {
             System.out.println("글이 삭제되었습니다.");
             return;
