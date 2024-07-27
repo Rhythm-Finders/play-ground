@@ -8,7 +8,7 @@
 - bugfix/: To fix bugs in the code. Often created associated to an issue.
 - hotfix/: To fix critical bugs in the production.
 
-### commit message naming convetions
+### commit message naming conventions
 - feat: add new features
 - docs: update documentation
 - fix: update functions
