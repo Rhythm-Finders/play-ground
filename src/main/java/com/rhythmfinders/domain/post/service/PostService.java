@@ -18,10 +18,6 @@ public class PostService {
         newPostInfo.setView(0);
         int result = postRepository.insertPost(newPostInfo);
         if (result == 1) {
-            System.out.println(newPostInfo.getPostTitle() + "작성되었습니다.");
-            // TODO
-            //  Post post = postRepository.selectPost(recent postId)
-            //  return post
             System.out.println("Successfully posted");
         }
     }
@@ -32,41 +28,37 @@ public class PostService {
     }
 
     public void removePost(int postId) {
-        int result = postRepository.deletePost(postId);
-        if (result == 1) {
-            System.out.println("글이 삭제되었습니다.");
-            return;
+        if (findPostByPostId(postId) == null) {
+            System.out.println("Post not found");
+        } else {
+            int result = postRepository.deletePost(postId);
+
+            if (result == 1) {
+                System.out.println("글이 삭제되었습니다.");
+                return;
+            }
+            System.out.println("글이 삭제되지 않았습니다.");
         }
-        System.out.println("글이 삭제되지 않았습니다.");
     }
 
     public void modifyPost(Post reform) {
         int result = postRepository.updatePost(reform);
         if (result == 1) {
-            System.out.println("수정 완료");
-            return;
+            System.out.println("update successful");
+        } else {
+            System.out.println("update failed");
         }
-        System.out.println("수정 내역없음");
     }
 
-    public Post findPostForModi(int postId) {
-        Post selectedPost = postRepository.selectPost(postId);
-
-        if (selectedPost != null) {
-            Post newInstance = new Post();
-            newInstance.setPostId(selectedPost.postId);
-            newInstance.setPostTitle(selectedPost.postTitle);
-            newInstance.setPostContents(selectedPost.postContents);
-            newInstance.setMember(selectedPost.member);
-            newInstance.setCreateDate(selectedPost.createDate); // 수정되면 수정 일자 어떻게
-//            newInstance.getView(selectedPost.view); 조회수 확인 기능....
-
-            System.out.println("조회된 게시글은 [" + newInstance.getPostTitle() + "] 입니다.");
-            return newInstance;
+    public Post findPostByPostId(int postId) {
+        Post post = postRepository.selectPost(postId);
+        if (post == null) {
+            System.out.println("Post not found");
+            return null;
         } else {
-            System.out.println("그런 게시글은 없습니다.");
+            postRepository.selectPost(postId);
+            return post;
         }
-        return null;
     }
 
     public void findMyPost(int postId) {

@@ -123,21 +123,16 @@ public class PostRepository {
     }
 
     public int updatePost(Post reform) {
+        int result = 0;
         for (int i = 0; i < postListInstance.size(); i++) {
-            Post iPost = postListInstance.get(i);
-            if (iPost.getPostId() == reform.getPostId()) {
-                System.out.println("==== 수정 전 기존 회원 정보와의 비교 ====");
-                System.out.println("수정 내역: " + reform);
-                System.out.println("iPost: " + iPost);
-
+            if (postListInstance.get(i).getPostId() == reform.getPostId()) {
                 postListInstance.set(i, reform);
-
-                // db내역
                 savePosts(postListInstance);
-
-                if (iPost.equals(reform)) return  1;
+                result = 1;
+                return result;
             }
-        } return 0;
+        }
+        return 0;
     }
 
     public Post selectPost(int postId) {

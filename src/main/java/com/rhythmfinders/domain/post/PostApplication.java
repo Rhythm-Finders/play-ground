@@ -45,10 +45,16 @@ public class PostApplication {
                     break;
                 case "4":
                     // update post by postId
-                    Post selected = postService.findPostForModi(choosePostNo());
-                    if (selected == null) continue;
-                    postService.modifyPost(reform(selected));
-                    break;
+                    int postId = choosePostNo();
+                    if (postService.findPostByPostId(postId) == null) break;
+                    Post reformPost = setPostInformation(postId);
+                    if (reformPost == null) {
+                        System.out.println("you got wrong with post information. Try again");
+                        break;
+                    } else {
+                        postService.modifyPost(reformPost);
+                        break;
+                    }
                 case "5":
                     // delete post by postId
                     postService.removePost(choosePostNo());
@@ -60,8 +66,9 @@ public class PostApplication {
         }
     }
 
-    private static Post reform(Post selected) {
-        Post modifyPost = selected;
+    private static Post setPostInformation(int postId) {
+        Post modifyPost = new Post();
+        modifyPost.setPostId(postId);
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -77,7 +84,6 @@ public class PostApplication {
                 case 1:
                     System.out.println("수정 할 제목을 입력하세요: ");
                     modifyPost.setPostTitle(sc.nextLine());
-                    ;
                     break;
                 case 2:
                     System.out.println("수정 할 내용을 입력하세요: ");
@@ -85,7 +91,7 @@ public class PostApplication {
                     break;
                 case 0:
                     System.out.println("메인 메뉴로 돌아갑니다.");
-                    return selected;
+                    return null;
                 default:
                     System.out.println("수정을 완료해주세요");
             }
