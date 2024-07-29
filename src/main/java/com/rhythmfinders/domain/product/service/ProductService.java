@@ -53,21 +53,17 @@ public class ProductService {
             return;
         }
 
-        System.out.println("해당 상품 번호가 존재하지 않습니다. . .");
+        System.out.println("해당 상품 번호가 존재하지 않습니다.");
     }
 
-    public void modifyProduct(Product reform) {
-        int result = pr.updateProduct(reform);
-        if(result == 1){
-            System.out.println("수정 성공!");
-            return;
-        }
 
-        System.out.println("수정 내역 없음");
+    public Product bringInfo(int ProductPid) {
+
+        Product productInfo = pr.selectProduct(ProductPid);
+
+        return productInfo;
     }
 
-//    public Product findProductForMod(int pid) {
-////        Product selectedProduct = pr.
-//        return null;
-//    }
+    public void modifyProduct(Product chooseProduct) {
+    }
 }

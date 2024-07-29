@@ -39,10 +39,10 @@ public class ProductRepository {
         loadProduct(file);
 
         /* 설명. 임시로 들어간 파일 출력해 보기 */
-        Iterator<Product> iter = ProductList.iterator();
-        while(iter.hasNext()){
-            System.out.println("Product: " + iter.next());
-        }
+//        Iterator<Product> iter = ProductList.iterator();
+//        while(iter.hasNext()){
+//            System.out.println("Product: " + iter.next());
+//        }
 
     }
 
@@ -158,18 +158,4 @@ public class ProductRepository {
         return null;
     }
 
-    public int updateProduct(Product reform) {
-        for(int i=0; i< ProductList.size(); i++) {
-            Product updateProduct = ProductList.get(i);
-            if(updateProduct.getpId() == reform.getpId()) {
-                ProductList.set(i, reform);
-
-                File file = new File("src/main/java/com/rhythmfinders/domain/product/db/productDB.dat");
-                saveProduct(file, ProductList);
-
-                if(updateProduct.equals(reform)) return 1;
-            }
-        }
-        return 0;
-    }
 }

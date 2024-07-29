@@ -38,10 +38,8 @@ public class Application {
                 case 2: ps.findProductBy(choosePid()); break;
                 case 3: ps.registProduct(signUp()); break;
                 case 4: ps.removeProduct(choosePid()); break;
-//                case 5:
-//                    Product selected = ps.findProductForMod(choosePid());
-//                    if(selected != null) continue;
-//                    ps.modifyProduct(reform()); break;
+                case 5: Product chooseProduct = ps.bringInfo(choosePid());
+                        ps.modifyProduct(reformProduct(chooseProduct));
                 case 9:
                     System.out.println("상품관리 프로그램을 종료합니다. "); return; //메인 종료
                 default:
@@ -49,7 +47,6 @@ public class Application {
             }
         }
     }
-
 
     private static Product signUp() {
         Product newProduct = null;
@@ -95,63 +92,6 @@ public class Application {
         return newProduct;
     }
 
-    /* 설명. 매개변수가 많아서, 가공 처리를 하는 것*/
-    private static Product reform(Product selected) {
-        Product modifiedProduct = selected;
-        Scanner sc = new Scanner(System.in);
-
-        while(true){
-            System.out.println("==== 상품 수정 메뉴 ====");
-            System.out.println("1. 상품이름");
-            System.out.println("2. 상품가격");
-            System.out.println("3. 상품사진");
-            System.out.println("4. 상품상세");
-            System.out.println("5. 상품재고");
-            System.out.println("6. 할인여부");
-            System.out.println("7. 메인 메뉴로 돌아가기");
-            System.out.println("내용을 선택하세요: ");
-
-            int choosePid = sc.nextInt();
-            sc.nextLine();
-
-            switch(choosePid){
-                case 1:
-                    System.out.println("수정 할 상품이름을 입력하세요: ");
-                    modifiedProduct.setpName(sc.nextLine());
-                    break;
-                case 2:
-                    System.out.println("수정 할 상품가격을 입력하세요: ");
-                    modifiedProduct.setpPrice(sc.nextInt());
-                    break;
-                case 3:
-                    System.out.println("수정 할 상품사진을 입력하세요: ");
-                    modifiedProduct.setpPicture(sc.nextLine());
-                    break;
-                case 4:
-                    System.out.println("수정 할 상품상세를 입력하세요: ");
-                    modifiedProduct.setpInfo(sc.nextLine());
-                    break;
-                case 5:
-                    System.out.println("수정 할 상품재고를 입력하세요: ");
-                    modifiedProduct.setpStock(sc.nextInt());
-                    break;
-                case 6:
-                    System.out.println("할인여부를 입력하세요(네,아니오): ");
-                    String chkSale = sc.nextLine();
-                    checkSale(modifiedProduct, chkSale);
-                    break;
-                case 7:
-                    System.out.println("메인 메뉴로 돌아갑니다.");
-                    return selected;
-                default:
-                    System.out.println("번호를 다시 제대로 입력해 주세요: ");
-            }
-
-            return modifiedProduct;
-        }
-
-    }
-
     private static void checkSale(Product modifiedProduct, String chkSale) {
         boolean chkSaleFlag = modifiedProduct.isSale();
         if(chkSale.equals("네")){
@@ -169,6 +109,50 @@ public class Application {
         System.out.println("상품의 번호를 입력하세요: ");
         return sc.nextInt();
     }
+
+    private static Product reformProduct(Product chooseProduct) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1.상품이름, 2.상품가격, 3.상품사진, 4.상품상세, 5.상품재고, 6.제조사 7.상품 카테고리");
+        System.out.print("수정할 부분을 선택하시오: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch(choice){
+            case 1:
+                System.out.println("수정할 상품 이름을 입력하시오: ");
+                String pName = sc.nextLine();
+                chooseProduct.setpName(pName); break;
+            case 2:
+                System.out.println("수정할 상품 이름을 입력하시오: ");
+                String pName = sc.nextLine();
+                chooseProduct.setpName(pName); break;
+            case 3:
+                System.out.println("수정할 상품 이름을 입력하시오: ");
+                String pName = sc.nextLine();
+                chooseProduct.setpName(pName); break;
+            case 4:
+                System.out.println("수정할 상품 이름을 입력하시오: ");
+                String pName = sc.nextLine();
+                chooseProduct.setpName(pName); break;
+            case 5:
+                System.out.println("수정할 상품 이름을 입력하시오: ");
+                String pName = sc.nextLine();
+                chooseProduct.setpName(pName); break;
+            case 6:
+                System.out.println("수정할 상품 이름을 입력하시오: ");
+                String pName = sc.nextLine();
+                chooseProduct.setpName(pName); break;
+            case 7:
+                System.out.println("수정할 상품 이름을 입력하시오: ");
+                String pName = sc.nextLine();
+                chooseProduct.setpName(pName); break;
+            default:
+                System.out.println("잘못된 번호를 입력하셨습니다.");
+        }
+        ;
+    }
+
 
 }
 
